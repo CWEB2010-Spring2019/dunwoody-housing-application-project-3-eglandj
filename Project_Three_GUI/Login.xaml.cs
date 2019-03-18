@@ -24,5 +24,13 @@ namespace Project_Three_GUI
         {
             InitializeComponent();
         }
+
+        private void LoginButton_Click(object sender, RoutedEventArgs e)
+        {
+            if(Username.Text != "home" && Password.Password != "1234")
+            {
+
+            }
+        }
     }
 }
