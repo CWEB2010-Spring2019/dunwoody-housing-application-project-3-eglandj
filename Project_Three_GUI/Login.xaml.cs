@@ -30,6 +30,8 @@ namespace Project_Three_GUI
         {
             if(Username.Text == "home" && Password.Password == "1234")
             {
+                Selection selectionPage = new Selection();
+                this.NavigationService.Navigate(selectionPage);
                 Warning_Label.Visibility = Visibility.Visible;
             }
         }
