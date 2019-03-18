@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace Project_Three_GUI
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for Selection.xaml
     /// </summary>
-    public partial class MainWindow : NavigationWindow
+    public partial class Selection : Page
     {
-        public MainWindow()
+        public Selection()
         {
             InitializeComponent();
         }
