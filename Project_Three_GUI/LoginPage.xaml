@@ -11,7 +11,7 @@
     <Grid>
 
         <Rectangle Fill="Black" Width="140" HorizontalAlignment="Center" Margin="0,145,0,0" Height="180" Stroke="Black"/>
-        <Label Name="Warning_Label" Content="Invalid Username or Password" Foreground="Red" Background="Black" FontSize="10" Height="20" HorizontalAlignment="Center" Margin="0,-125,0,0" Width="29" Visibility="Hidden"/>
+        <Label Name="Warning_Label" Content="Invalid Username or Password" Foreground="Red" Background="Black" FontSize="15" Height="30" HorizontalAlignment="Center" Margin="0,-80,0,0" Width="auto" Visibility="Visible"/>
         <StackPanel>
             <Label Name="Title_Label" Content="Dunwoody" Background="Black" Foreground="#C11B17" FontSize="80" FontFamily="Times New Roman" FontWeight="UltraLight" HorizontalAlignment="Center" Margin="0,20,0,0" VerticalAlignment="Top"/>
             <Label Content="Username" FontSize="12" Foreground="WhiteSmoke" HorizontalAlignment="Left" Margin="338,50,0,0"/>

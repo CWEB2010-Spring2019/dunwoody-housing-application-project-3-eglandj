@@ -23,13 +23,14 @@ namespace Project_Three_GUI
         public Login()
         {
             InitializeComponent();
+            Warning_Label.Visibility = Visibility.Hidden;
         }
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
-            if(Username.Text != "home" && Password.Password != "1234")
+            if(Username.Text == "home" && Password.Password == "1234")
             {
-
+                Warning_Label.Visibility = Visibility.Visible;
             }
         }
     }
