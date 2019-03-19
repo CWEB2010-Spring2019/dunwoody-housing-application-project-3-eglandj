@@ -32,6 +32,9 @@ namespace Project_Three_GUI
             {
                 Selection selectionPage = new Selection();
                 this.NavigationService.Navigate(selectionPage);
+            }
+            else
+            {
                 Warning_Label.Visibility = Visibility.Visible;
             }
         }
