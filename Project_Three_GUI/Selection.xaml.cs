@@ -27,9 +27,7 @@ namespace Project_Three_GUI
 
         private void Exit_App_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow mw = new MainWindow();
-            this.NavigationService.Navigate(mw);
-            mw.Close();
+            
         }
     }
 }
