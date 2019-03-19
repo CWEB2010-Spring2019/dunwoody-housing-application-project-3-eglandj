@@ -23,6 +23,7 @@ namespace Project_Three_GUI
         public MainWindow()
         {
             InitializeComponent();
+            this.Content = new Login(this).Content;
         }
     }
 }

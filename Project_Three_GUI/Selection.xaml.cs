@@ -20,9 +20,17 @@ namespace Project_Three_GUI
     /// </summary>
     public partial class Selection : Page
     {
-        public Selection()
+        object parent;
+        public Selection(object _parent)
         {
+            parent = _parent;
             InitializeComponent();
+        }
+
+        private void Exit_App_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow mw = (MainWindow)parent;
+            mw.Close();
         }
     }
 }
