@@ -20,10 +20,8 @@ namespace Project_Three_GUI
     /// </summary>
     public partial class Login : Page
     {
-        object parent;
-        public Login(object _parent)
+        public Login()
         {
-            parent = _parent;
             InitializeComponent();
             Warning_Label.Visibility = Visibility.Hidden;
         }
@@ -32,9 +30,8 @@ namespace Project_Three_GUI
         {
             if(Username.Text == "home" && Password.Password == "1234")
             {
-                Selection selectionPage = new Selection(parent);
-                ((MainWindow)parent).Content = selectionPage.Content;
-                //this.NavigationService.Navigate(selectionPage);
+                Selection selectionPage = new Selection();
+                this.NavigationService.Navigate(selectionPage);
             }
             else
             {

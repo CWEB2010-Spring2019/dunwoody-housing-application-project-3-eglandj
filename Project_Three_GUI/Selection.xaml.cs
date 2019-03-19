@@ -20,16 +20,15 @@ namespace Project_Three_GUI
     /// </summary>
     public partial class Selection : Page
     {
-        object parent;
-        public Selection(object _parent)
+        public Selection()
         {
-            parent = _parent;
             InitializeComponent();
         }
 
         private void Exit_App_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow mw = (MainWindow)parent;
+            MainWindow mw = new MainWindow();
+            this.NavigationService.Navigate(mw);
             mw.Close();
         }
     }
