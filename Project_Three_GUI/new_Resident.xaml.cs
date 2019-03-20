@@ -23,6 +23,8 @@ namespace Project_Three_GUI
         public new_Resident()
         {
             InitializeComponent();
+            MonthlyHours.Visibility = Visibility.Hidden;
+            MonthlyHoursLabel.Visibility = Visibility.Hidden;
         }
     }
 }
