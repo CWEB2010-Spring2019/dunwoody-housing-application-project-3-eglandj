@@ -33,7 +33,8 @@ namespace Project_Three_GUI
 
         private void New_Resident_Click(object sender, RoutedEventArgs e)
         {
-
+            new_Resident newResidentPage = new new_Resident();
+            this.NavigationService.Navigate(newResidentPage);
         }
     }
 }
