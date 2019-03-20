@@ -58,6 +58,7 @@
     <Compile Include="Selection.xaml.cs">
       <DependentUpon>Selection.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Student.cs" />
     <Page Include="Login.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

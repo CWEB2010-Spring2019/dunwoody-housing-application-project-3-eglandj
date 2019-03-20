@@ -30,5 +30,10 @@ namespace Project_Three_GUI
             Window window = Application.Current.Windows.OfType<Window>().FirstOrDefault();
             window.Close();
         }
+
+        private void New_Resident_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
