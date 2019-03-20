@@ -27,7 +27,8 @@ namespace Project_Three_GUI
 
         private void Exit_App_Click(object sender, RoutedEventArgs e)
         {
-            
+            Window window = Application.Current.Windows.OfType<Window>().FirstOrDefault();
+            window.Close();
         }
     }
 }
