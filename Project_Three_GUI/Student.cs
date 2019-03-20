@@ -19,7 +19,6 @@ namespace Project_Three_GUI
     {
         public static int[] floorOptions = { 1, 2, 3 };
         Dictionary<int, Scholarship> roomOccupied = new Dictionary<int, Scholarship>();
-        public int[] roomOptions = new int[20];
 
         public Scholarship(int id, string fname, string lname, int floor, int room)
         {

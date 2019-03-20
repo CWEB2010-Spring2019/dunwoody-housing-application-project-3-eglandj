@@ -11,12 +11,12 @@
     <Grid>
         <Rectangle Fill="Black" HorizontalAlignment="Center" Height="180" Margin="0,80,0,0" Stroke="Black" VerticalAlignment="Top" Width="580" Opacity="0.75"/>
         <Button Name="CreateButton" Content="Create" HorizontalAlignment="Right" FontSize="25" BorderBrush="Black" BorderThickness="2" Margin="0,0,50,50" VerticalAlignment="Bottom" Foreground="WhiteSmoke" Background="#C11B17" Height="50" Width="120"/>
-        <ComboBox Name="StudentType" HorizontalAlignment="Center" FontSize="25" Height="30" Margin="400,100,0,0" VerticalAlignment="Top" Width="120"/>
-        <TextBox Name="FirstName" HorizontalAlignment="Center" FontSize="25" Height="30" Margin="0,100,400,0" Background="FloralWhite" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox Name="LastName" HorizontalAlignment="Center" FontSize="25" Height="30" Margin="0,100,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <ComboBox Name="FloorNumber" HorizontalAlignment="Center" FontSize="25" Height="30" Margin="0,200,400,0" VerticalAlignment="Top" Width="120"/>
-        <ComboBox Name="RoomNumber" HorizontalAlignment="Center" FontSize="25" Height="30" Margin="0,200,0,0" VerticalAlignment="Top" Width="120"/>
-        <TextBox Name="MonthlyHours" HorizontalAlignment="Center" FontSize="25" Height="30" Margin="400,200,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <ComboBox Name="StudentType" HorizontalAlignment="Center" FontSize="20" Height="30" Margin="400,100,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="StudentType_SelectionChanged"/>
+        <TextBox Name="FirstName" HorizontalAlignment="Center" FontSize="20" Height="30" Margin="0,100,400,0" Background="FloralWhite" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox Name="LastName" HorizontalAlignment="Center" FontSize="20" Height="30" Margin="0,100,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <ComboBox Name="FloorNumber" HorizontalAlignment="Center" FontSize="20" Height="30" Margin="0,200,400,0" VerticalAlignment="Top" Width="120" SelectionChanged="FloorNumber_SelectionChanged"/>
+        <ComboBox Name="RoomNumber" HorizontalAlignment="Center" FontSize="20" Height="30" Margin="0,200,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="RoomNumber_SelectionChanged"/>
+        <TextBox Name="MonthlyHours" HorizontalAlignment="Center" FontSize="20" Height="30" Margin="400,200,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <Label Content="First Name" Foreground="White" FontSize="15" HorizontalAlignment="Center" Margin="0,75,400,0" VerticalAlignment="Top"/>
         <Label Content="Last Name" Foreground="White" FontSize="15" HorizontalAlignment="Center" Margin="0,75,0,0" VerticalAlignment="Top"/>
         <Label Content="Student Type" Foreground="White" FontSize="15" HorizontalAlignment="Center" Margin="400,75,0,0" VerticalAlignment="Top"/>
