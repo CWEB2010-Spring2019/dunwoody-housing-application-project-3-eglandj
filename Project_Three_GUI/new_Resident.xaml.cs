@@ -24,6 +24,7 @@ namespace Project_Three_GUI
         {
             InitializeComponent();
             populateStudentType();
+            CreateButton.Visibility = Visibility.Hidden;
             MonthlyHours.Visibility = Visibility.Hidden;
             MonthlyHoursLabel.Visibility = Visibility.Hidden;
             FloorNumber.IsEnabled = false;
@@ -41,14 +42,15 @@ namespace Project_Three_GUI
             FloorNumber.IsEnabled = true;
             if (StudentType.SelectedValue.ToString() == "Athlete")
             {
-                FloorNumber.Items.Add("7");
-                FloorNumber.Items.Add("8");
-            }
-            else if (StudentType.SelectedValue.ToString() == "Scholarship")
-            {
                 FloorNumber.Items.Add("4");
                 FloorNumber.Items.Add("5");
                 FloorNumber.Items.Add("6");
+            }
+            else if (StudentType.SelectedValue.ToString() == "Scholarship")
+            {
+                
+                FloorNumber.Items.Add("7");
+                FloorNumber.Items.Add("8");
             }
             else if (StudentType.SelectedValue.ToString() == "Worker")
             {
@@ -63,14 +65,25 @@ namespace Project_Three_GUI
             RoomNumber.IsEnabled = true;
             for (int i = 0; i < 10; i++)
             {
-                RoomNumber.Items.Add(FloorNumber.SelectedValue + "0" + i.ToString());
+                RoomNumber.Items.Add(FloorNumber.SelectedValue + i.ToString("D2"));
             }
             
         }
 
         private void StudentType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            CreateButton.Visibility = Visibility.Hidden;
             populateFloors();
+            if (StudentType.SelectedValue.ToString() == "Worker")
+            {
+                MonthlyHours.Visibility = Visibility.Visible;
+                MonthlyHoursLabel.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                MonthlyHours.Visibility = Visibility.Hidden;
+                MonthlyHoursLabel.Visibility = Visibility.Hidden;
+            }
         }
 
         private void FloorNumber_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -80,7 +93,44 @@ namespace Project_Three_GUI
 
         private void RoomNumber_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            
+            if (StudentType.SelectedValue.ToString() != "Worker")
+            {
+                if (FirstName.Text != null && LastName.Text != null && StudentType.SelectedValue != null && FloorNumber.SelectedValue != null && RoomNumber.SelectedValue != null)
+                {
+                    CreateButton.Visibility = Visibility.Visible;
+                }
+            }
         }
+
+        private void MonthlyHours_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (FirstName.Text != null && LastName.Text != null && StudentType.SelectedValue != null && FloorNumber.SelectedValue != null && RoomNumber.SelectedValue != null && MonthlyHours.SelectedText != null)
+            {
+                CreateButton.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                CreateButton.Visibility = Visibility.Hidden;
+            }
+        }
+
+        private void CreateButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (StudentType.SelectedValue.ToString() == "Athlete")
+            {
+                Athlete athlete = new Athlete(FirstName.Text, LastName.Text, Convert.ToInt32(FloorNumber.SelectedValue.ToString()), Convert.ToInt32(RoomNumber.SelectedValue.ToString()));
+            }
+            else if (StudentType.SelectedValue.ToString() == "Scholarship")
+            {
+
+            }
+            else if (StudentType.SelectedValue.ToString() == "Worker")
+            {
+                FloorNumber.Items.Add("1");
+                FloorNumber.Items.Add("2");
+                FloorNumber.Items.Add("3");
+            }
+        }
+
     }
 }
