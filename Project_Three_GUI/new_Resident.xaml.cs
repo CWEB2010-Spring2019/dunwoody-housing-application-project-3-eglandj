@@ -67,7 +67,6 @@ namespace Project_Three_GUI
             {
                 RoomNumber.Items.Add(FloorNumber.SelectedValue + i.ToString("D2"));
             }
-            
         }
 
         private void StudentType_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -116,20 +115,26 @@ namespace Project_Three_GUI
 
         private void CreateButton_Click(object sender, RoutedEventArgs e)
         {
-            if (StudentType.SelectedValue.ToString() == "Athlete")
+            try
             {
-                Athlete athlete = new Athlete(FirstName.Text, LastName.Text, Convert.ToInt32(FloorNumber.SelectedValue.ToString()), Convert.ToInt32(RoomNumber.SelectedValue.ToString()));
+                if (StudentType.SelectedValue.ToString() == "Athlete")
+                {
+                    Athlete athlete = new Athlete(FirstName.Text, LastName.Text, Convert.ToInt32(FloorNumber.SelectedValue.ToString()), Convert.ToInt32(RoomNumber.SelectedValue.ToString()));
+                }
+                else if (StudentType.SelectedValue.ToString() == "Scholarship")
+                {
+                    Scholarship athlete = new Scholarship(FirstName.Text, LastName.Text, Convert.ToInt32(FloorNumber.SelectedValue.ToString()), Convert.ToInt32(RoomNumber.SelectedValue.ToString()));
+                }
+                else if (StudentType.SelectedValue.ToString() == "Worker")
+                {
+                    Worker athlete = new Worker(FirstName.Text, LastName.Text, Convert.ToInt32(FloorNumber.SelectedValue.ToString()), Convert.ToInt32(RoomNumber.SelectedValue.ToString()), Convert.ToDouble(MonthlyHours.Text));
+                }
             }
-            else if (StudentType.SelectedValue.ToString() == "Scholarship")
+            catch
             {
-
+                MessageBox.Show("Please fill in the data correctly");
             }
-            else if (StudentType.SelectedValue.ToString() == "Worker")
-            {
-                FloorNumber.Items.Add("1");
-                FloorNumber.Items.Add("2");
-                FloorNumber.Items.Add("3");
-            }
+           
         }
 
     }

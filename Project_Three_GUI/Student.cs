@@ -17,12 +17,9 @@ namespace Project_Three_GUI
     }
     class Scholarship : Student
     {
-        public static int[] floorOptions = { 7, 8 };
-        Dictionary<int, Scholarship> roomOccupied = new Dictionary<int, Scholarship>();
-
-        public Scholarship(int id, string fname, string lname, int floor, int room)
+        public Scholarship(string fname, string lname, int floor, int room)
         {
-            ID_Number = id;
+            ID_Number = 1;
             firstName = fname;
             lastName = lname;
             floorNumber = floor;
@@ -32,7 +29,6 @@ namespace Project_Three_GUI
     }
     class Athlete : Student
     {
-        public static int[] floorOptions = { 4, 5, 6 };
         public Athlete(string fname, string lname, int floor, int room)
         {
             ID_Number = 1;
@@ -46,12 +42,11 @@ namespace Project_Three_GUI
     }
     class Worker : Student
     {
-        public static int[] floorOptions = { 1, 2, 3 };
         private double hourlyPay;
         private double monthlyHours;
-        public Worker(int id, string fname, string lname, int floor, int room, int monthHours)
+        public Worker(string fname, string lname, int floor, int room, double monthHours)
         {
-            ID_Number = id;
+            ID_Number = 1;
             firstName = fname;
             lastName = lname;
             floorNumber = floor;
