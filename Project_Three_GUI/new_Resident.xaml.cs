@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Newtonsoft.Json;
+
 
 namespace Project_Three_GUI
 {
@@ -29,6 +32,7 @@ namespace Project_Three_GUI
             MonthlyHoursLabel.Visibility = Visibility.Hidden;
             FloorNumber.IsEnabled = false;
             RoomNumber.IsEnabled = false;
+            Student[,] studentInfo = JsonConvert.DeserializeObject<Student[,]>(File.ReadAllText(@"..\..\Student_Data.JSON"));
         }
         public void populateStudentType()
         {
@@ -119,15 +123,16 @@ namespace Project_Three_GUI
             {
                 if (StudentType.SelectedValue.ToString() == "Athlete")
                 {
-                    Athlete athlete = new Athlete(FirstName.Text, LastName.Text, Convert.ToInt32(FloorNumber.SelectedValue.ToString()), Convert.ToInt32(RoomNumber.SelectedValue.ToString()));
+                    Athlete athlete = new Athlete(1, FirstName.Text, LastName.Text, Convert.ToInt32(FloorNumber.SelectedValue.ToString()), Convert.ToInt32(RoomNumber.SelectedValue.ToString()));
+                    string json = JsonConvert.SerializeObject(athlete);
                 }
                 else if (StudentType.SelectedValue.ToString() == "Scholarship")
                 {
-                    Scholarship athlete = new Scholarship(FirstName.Text, LastName.Text, Convert.ToInt32(FloorNumber.SelectedValue.ToString()), Convert.ToInt32(RoomNumber.SelectedValue.ToString()));
+                    Scholarship scholarship = new Scholarship(FirstName.Text, LastName.Text, Convert.ToInt32(FloorNumber.SelectedValue.ToString()), Convert.ToInt32(RoomNumber.SelectedValue.ToString()));
                 }
                 else if (StudentType.SelectedValue.ToString() == "Worker")
                 {
-                    Worker athlete = new Worker(FirstName.Text, LastName.Text, Convert.ToInt32(FloorNumber.SelectedValue.ToString()), Convert.ToInt32(RoomNumber.SelectedValue.ToString()), Convert.ToDouble(MonthlyHours.Text));
+                    Worker worker = new Worker(FirstName.Text, LastName.Text, Convert.ToInt32(FloorNumber.SelectedValue.ToString()), Convert.ToInt32(RoomNumber.SelectedValue.ToString()), Convert.ToDouble(MonthlyHours.Text));
                 }
             }
             catch

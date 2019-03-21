@@ -29,9 +29,9 @@ namespace Project_Three_GUI
     }
     class Athlete : Student
     {
-        public Athlete(string fname, string lname, int floor, int room)
+        public Athlete(int id, string fname, string lname, int floor, int room)
         {
-            ID_Number = 1;
+            ID_Number = id;
             firstName = fname;
             lastName = lname;
             floorNumber = floor;
