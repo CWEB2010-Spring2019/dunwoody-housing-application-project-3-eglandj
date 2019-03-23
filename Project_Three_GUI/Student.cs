@@ -6,55 +6,25 @@ using System.Threading.Tasks;
 
 namespace Project_Three_GUI
 {
-    abstract class Student
+    public class Student
     {
-        protected int ID_Number;
-        protected string firstName;
-        protected string lastName;
-        protected int floorNumber;
-        protected int roomNumber;
-        protected double rentFee;
-    }
-    class Scholarship : Student
-    {
-        public Scholarship(string fname, string lname, int floor, int room)
+        public int ID_Number;
+        public string firstName;
+        public string lastName;
+        public string studentType;
+        public int floorNumber;
+        public int roomNumber;
+        public double rentFee;
+        public Student(string csvLine)
         {
-            ID_Number = 1;
-            firstName = fname;
-            lastName = lname;
-            floorNumber = floor;
-            roomNumber = room;
-            rentFee = 100;
+            string[] information = csvLine.Split(',');
+            ID_Number = Convert.ToInt16(information[0]);
+            firstName = information[1];
+            lastName = information[2];
+            studentType = information[3];
+            floorNumber = Convert.ToInt32(information[4]);
+            roomNumber = Convert.ToInt32(information[5]);
+            rentFee = Convert.ToDouble(information[6]);
         }
-    }
-    class Athlete : Student
-    {
-        public Athlete(int id, string fname, string lname, int floor, int room)
-        {
-            ID_Number = id;
-            firstName = fname;
-            lastName = lname;
-            floorNumber = floor;
-            roomNumber = room;
-            rentFee = 1200;
-        }
-
-    }
-    class Worker : Student
-    {
-        private double hourlyPay;
-        private double monthlyHours;
-        public Worker(string fname, string lname, int floor, int room, double monthHours)
-        {
-            ID_Number = 1;
-            firstName = fname;
-            lastName = lname;
-            floorNumber = floor;
-            roomNumber = room;
-            monthlyHours = monthHours;
-            hourlyPay = 14.00;
-            double monthlyPay = hourlyPay * monthlyHours;
-            rentFee = 1245 - (0.5 * monthlyPay);
-        } 
     }
 }
