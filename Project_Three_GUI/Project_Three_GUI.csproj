@@ -61,6 +61,9 @@
     <Compile Include="new_Resident.xaml.cs">
       <DependentUpon>new_Resident.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ResidentSearch.xaml.cs">
+      <DependentUpon>ResidentSearch.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Selection.xaml.cs">
       <DependentUpon>Selection.xaml</DependentUpon>
     </Compile>
@@ -85,6 +88,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="new_Resident.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ResidentSearch.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -117,7 +124,6 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <None Include="Student_Data.csv" />
-    <None Include="Student_Data.json" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -130,6 +136,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="new_resident.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="dunwoody.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

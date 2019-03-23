@@ -11,7 +11,7 @@
     <Grid>
         <Button Name="Exit_App"  Content="Exit App" HorizontalAlignment="Center" FontSize="15" BorderBrush="Black" BorderThickness="2" Margin="0,75,450,0" VerticalAlignment="Center" Foreground="WhiteSmoke" Background="#C11B17" Height="50" Width="120" Click="Exit_App_Click"/>
         <Button Name="New_Resident"  Content="New Resident" HorizontalAlignment="Center" FontSize="15" BorderBrush="Black" BorderThickness="2" Margin="0,75,0,0" VerticalAlignment="Center" Foreground="WhiteSmoke" Background="#C11B17" Height="50" Width="120" Click="New_Resident_Click"/>
-        <Button Name="Resident_Search" Content="Resident Search" HorizontalAlignment="Center" FontSize="15" BorderBrush="Black" BorderThickness="2" Margin="450,75,0,0" VerticalAlignment="Center" Foreground="WhiteSmoke" Background="#C11B17" Height="50" Width="120"/>
+        <Button Name="Resident_Search" Content="Resident Search" HorizontalAlignment="Center" FontSize="15" BorderBrush="Black" BorderThickness="2" Margin="450,75,0,0" VerticalAlignment="Center" Foreground="WhiteSmoke" Background="#C11B17" Height="50" Width="120" Click="Resident_Search_Click"/>
         <Label Content="Please select an option:" FontWeight="Medium" FontSize="30" Background="Black" Foreground="WhiteSmoke" HorizontalAlignment="Center" Margin="0,80,0,0" VerticalAlignment="Top"/>
 
         <Grid.Background>

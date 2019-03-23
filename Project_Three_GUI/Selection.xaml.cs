@@ -36,5 +36,11 @@ namespace Project_Three_GUI
             new_Resident newResidentPage = new new_Resident();
             this.NavigationService.Navigate(newResidentPage);
         }
+
+        private void Resident_Search_Click(object sender, RoutedEventArgs e)
+        {
+            ResidentSearch residentSearchPage = new ResidentSearch();
+            this.NavigationService.Navigate(residentSearchPage);
+        }
     }
 }
