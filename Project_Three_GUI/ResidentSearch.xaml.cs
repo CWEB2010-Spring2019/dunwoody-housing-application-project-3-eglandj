@@ -28,7 +28,30 @@ namespace Project_Three_GUI
         public ResidentSearch()
         {
             InitializeComponent();
+            numberOfStudents(information);
             generate_columns(information);
+        }
+        private void numberOfStudents(List<Student> information)
+        {
+            var athlete =
+                from info in information
+                where info.studentType == "Athlete"
+                select info;
+            var scholarship =
+                from info in information
+                where info.studentType == "Scholarship"
+                select info;
+            var worker =
+                from info in information
+                where info.studentType == "Worker"
+                select info;
+
+            AthleteStudents.Content = "Number of Athlete Students: " + athlete.Count();
+            ScholarStudents.Content = "Number of Scholar Students: " + scholarship.Count();
+            WorkerStudents.Content = "Number of Worker Students: " + worker.Count();
+            floorRangeA.Content = "Number of Students on floors (1-3): " + worker.Count();
+            floorRangeB.Content = "Number of Students on floors (4-6): " + athlete.Count();
+            floorRangeC.Content = "Number of Students on floors (7-8): " + scholarship.Count();
         }
         private void generate_columns(List<Student> information)
         {
@@ -72,10 +95,36 @@ namespace Project_Three_GUI
             {
                 dataGrid1.Items.Add(new Student() { ID_Number = info.ID_Number, firstName = info.firstName, lastName = info.lastName, studentType = info.studentType, floorNumber = info.floorNumber, roomNumber = info.roomNumber, rentFee = info.rentFee });
             }
-            //for (int i = 0; i < quiz.correctAnswers.Length; i++)
-            //{
-            //    dataGrid1.Items.Add(new Quiz() { QuestionNumber = i + 1, CorrectAnswer = quiz.correctAnswers[i], UserAnswer = quiz.userSelection[i] });
-            //}
+        }
+
+        private void SearchButton_Click(object sender, RoutedEventArgs e)
+        {
+            dataGrid1.Items.Clear();
+            List<Student> updatedList = new List<Student>();
+            try
+            {
+                string searchID = Convert.ToInt32(SearchIdBox.Text).ToString();
+                foreach (Student info in information)
+                {
+                    if (info.ID_Number.ToString().Contains(searchID))
+                    {
+                        updatedList.Add(info);
+                    }
+                }
+                foreach (Student info in updatedList)
+                {
+                    dataGrid1.Items.Add(new Student() { ID_Number = info.ID_Number, firstName = info.firstName, lastName = info.lastName, studentType = info.studentType, floorNumber = info.floorNumber, roomNumber = info.roomNumber, rentFee = info.rentFee });
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Please enter an ID number");
+                dataGrid1.Items.Clear();
+                foreach (Student info in information)
+                {
+                    dataGrid1.Items.Add(new Student() { ID_Number = info.ID_Number, firstName = info.firstName, lastName = info.lastName, studentType = info.studentType, floorNumber = info.floorNumber, roomNumber = info.roomNumber, rentFee = info.rentFee });
+                }
+            }
         }
     }
 }
