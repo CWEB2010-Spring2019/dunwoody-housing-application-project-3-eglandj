@@ -8,7 +8,7 @@ namespace Project_Three_GUI
 {
     public class Student
     {
-        public int ID_Number { get; set; }
+        public string ID_Number { get; set; }
         public string firstName { get; set; }
         public string lastName { get; set; }
         public string studentType { get; set; }
@@ -18,7 +18,7 @@ namespace Project_Three_GUI
         public Student(string csvLine)
         {
             string[] information = csvLine.Split(',');
-            ID_Number = Convert.ToInt32(information[0]);
+            ID_Number = information[0];
             firstName = information[1];
             lastName = information[2];
             studentType = information[3];
