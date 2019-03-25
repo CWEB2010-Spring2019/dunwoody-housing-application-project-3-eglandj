@@ -17,7 +17,7 @@
             <Label HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="WhiteSmoke" Content="Search By ID Number" Margin="0,-242,380,0"/>
             <TextBox Name="SearchIdBox" HorizontalAlignment="Center" Height="24" Margin="0,-220,150,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="350"/>
             <Button Name="SearchButton" Content="Search" Height="24" HorizontalAlignment="Center" Margin="370,-220,0,0" VerticalAlignment="Top" Width="120" Click="SearchButton_Click"/>
-            <DataGrid Name="dataGrid1" HorizontalAlignment="Center" Height="100" Margin="0,-180,0,0" VerticalAlignment="Top" Width="530"/>
+            <DataGrid Name="dataGrid1" HorizontalAlignment="Center" Height="100" Margin="0,-180,0,0" VerticalAlignment="Top" Width="550" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" IsReadOnly="True"/>
             <Label Name="AthleteStudents" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="WhiteSmoke" Content="" Margin="140,-80,0,0"/>
             <Label Name="ScholarStudents" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="WhiteSmoke" Content="" Margin="140,-60,0,0"/>
             <Label Name="WorkerStudents" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="WhiteSmoke" Content="" Margin="140,-40,0,0"/>
