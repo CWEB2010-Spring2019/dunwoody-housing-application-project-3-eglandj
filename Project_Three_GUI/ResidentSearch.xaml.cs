@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -21,40 +22,92 @@ namespace Project_Three_GUI
     /// </summary>
     public partial class ResidentSearch : Page
     {
-        List<Student> information = File.ReadAllLines(@"..\..\Student_Data.csv")//Reading all lines from the csv file
-                                       .Skip(1)//Skips the first line in the csv file
-                                       .Select(students => new Student(students))//Creating new objects for the read data
-                                       .ToList();//Putting the objects into a list
+        string[] information = File.ReadAllLines(@"..\..\Student_Data.csv");//Reading all lines from the csv file
+                                       
         public ResidentSearch()
         {
             InitializeComponent();
             numberOfStudents(information);
             generate_columns(information);
         }
-        private void numberOfStudents(List<Student> information)
+        private void numberOfStudents(string[] information)
         {
-            var athlete =
+            IEnumerable<string> AthleteQuery =
                 from info in information
-                where info.studentType == "Athlete"
-                select info;
-            var scholarship =
-                from info in information
-                where info.studentType == "Scholarship"
-                select info;
-            var worker =
-                from info in information
-                where info.studentType == "Worker"
-                select info;
+                let elements = info.Split(',')
+                where elements[3].ToString() == "Athlete"
+                select elements[3];
 
-            AthleteStudents.Content = "Number of Athlete Students: " + athlete.Count();
-            ScholarStudents.Content = "Number of Scholar Students: " + scholarship.Count();
-            WorkerStudents.Content = "Number of Worker Students: " + worker.Count();
-            floorRangeA.Content = "Number of Students on floors (1-3): " + worker.Count();
-            floorRangeB.Content = "Number of Students on floors (4-6): " + athlete.Count();
-            floorRangeC.Content = "Number of Students on floors (7-8): " + scholarship.Count();
+            IEnumerable<string> WorkerQuery =
+                from info in information
+                let elements = info.Split(',')
+                where elements[3].ToString() == "Worker"
+                select elements[3];
+
+
+            IEnumerable<string> ScholarshipQuery =
+                from info in information
+                let elements = info.Split(',')
+                where elements[3].ToString() == "Scholarship"
+                select elements[3];
+
+            AthleteStudents.Content = "Number of Athlete Students: " + AthleteQuery.Count();
+            ScholarStudents.Content = "Number of Scholar Students: " + ScholarshipQuery.Count();
+            WorkerStudents.Content = "Number of Worker Students: " + WorkerQuery.Count();
+            floorRangeA.Content = "Number of Students on floors (1-3): " + WorkerQuery.Count();
+            floorRangeB.Content = "Number of Students on floors (4-6): " + AthleteQuery.Count();
+            floorRangeC.Content = "Number of Students on floors (7-8): " + ScholarshipQuery.Count();
         }
-        private void generate_columns(List<Student> information)
+        private void generate_columns(string[] information)
         {
+            IEnumerable<Athlete> AthleteQuery =
+               from info in information
+               let elements = info.Split(',')
+               where elements[3].ToString() == "Athlete"
+               select new Athlete()
+               {
+                   ID_Number = elements[0],
+                   firstName = elements[1],
+                   lastName = elements[2],
+                   studentType = elements[3],
+                   floorNumber = Convert.ToInt32(elements[4]),
+                   roomNumber = Convert.ToInt32(elements[5]),
+                   rentFee = Convert.ToDouble(elements[6])
+               };
+            List<Athlete> athleteList = AthleteQuery.ToList();
+
+            IEnumerable<Worker> WorkerQuery =
+                from info in information
+                let elements = info.Split(',')
+                where elements[3].ToString() == "Worker"
+                select new Worker()
+                {
+                    ID_Number = elements[0],
+                    firstName = elements[1],
+                    lastName = elements[2],
+                    studentType = elements[3],
+                    floorNumber = Convert.ToInt32(elements[4]),
+                    roomNumber = Convert.ToInt32(elements[5]),
+                    rentFee = Convert.ToDouble(elements[6])
+                };
+            List<Worker> workerList = WorkerQuery.ToList();
+
+            IEnumerable<Scholarship> ScholarshipQuery =
+                from info in information
+                let elements = info.Split(',')
+                where elements[3].ToString() == "Scholarship"
+                select new Scholarship()
+                {
+                    ID_Number = elements[0],
+                    firstName = elements[1],
+                    lastName = elements[2],
+                    studentType = elements[3],
+                    floorNumber = Convert.ToInt32(elements[4]),
+                    roomNumber = Convert.ToInt32(elements[5]),
+                    rentFee = Convert.ToDouble(elements[6])
+                };
+            List<Scholarship> scholarshipList = ScholarshipQuery.ToList();
+
             DataGridTextColumn c1 = new DataGridTextColumn();
             c1.Header = "ID Number";
             c1.Binding = new Binding("ID_Number");
@@ -90,39 +143,114 @@ namespace Project_Three_GUI
             c7.Width = 80;
             c7.Binding = new Binding("rentFee");
             dataGrid1.Columns.Add(c7);
+
             //ID Number,First Name,Last Name,Student Type,Floor Number,Room Number,Rent Fee
-            foreach(Student info in information)
+            foreach (Athlete info in athleteList)
             {
-                dataGrid1.Items.Add(new Student() { ID_Number = info.ID_Number, firstName = info.firstName, lastName = info.lastName, studentType = info.studentType, floorNumber = info.floorNumber, roomNumber = info.roomNumber, rentFee = info.rentFee });
+                dataGrid1.Items.Add(new Athlete() { ID_Number = info.ID_Number, firstName = info.firstName, lastName = info.lastName, studentType = info.studentType, floorNumber = info.floorNumber, roomNumber = info.roomNumber, rentFee = info.rentFee });
+            }
+            foreach (Worker info in workerList)
+            {
+                dataGrid1.Items.Add(new Worker() { ID_Number = info.ID_Number, firstName = info.firstName, lastName = info.lastName, studentType = info.studentType, floorNumber = info.floorNumber, roomNumber = info.roomNumber, rentFee = info.rentFee });
+            }
+            foreach (Scholarship info in scholarshipList)
+            {
+                dataGrid1.Items.Add(new Scholarship() { ID_Number = info.ID_Number, firstName = info.firstName, lastName = info.lastName, studentType = info.studentType, floorNumber = info.floorNumber, roomNumber = info.roomNumber, rentFee = info.rentFee });
             }
         }
 
         private void SearchButton_Click(object sender, RoutedEventArgs e)
         {
             dataGrid1.Items.Clear();
-            List<Student> updatedList = new List<Student>();
+            IEnumerable<Athlete> AthleteQuery =
+               from info in information
+               let elements = info.Split(',')
+               where elements[3].ToString() == "Athlete"
+               select new Athlete()
+               {
+                   ID_Number = elements[0],
+                   firstName = elements[1],
+                   lastName = elements[2],
+                   studentType = elements[3],
+                   floorNumber = Convert.ToInt32(elements[4]),
+                   roomNumber = Convert.ToInt32(elements[5]),
+                   rentFee = Convert.ToDouble(elements[6])
+               };
+            List<Athlete> athleteList = AthleteQuery.ToList();
+
+            IEnumerable<Worker> WorkerQuery =
+                from info in information
+                let elements = info.Split(',')
+                where elements[3].ToString() == "Worker"
+                select new Worker()
+                {
+                    ID_Number = elements[0],
+                    firstName = elements[1],
+                    lastName = elements[2],
+                    studentType = elements[3],
+                    floorNumber = Convert.ToInt32(elements[4]),
+                    roomNumber = Convert.ToInt32(elements[5]),
+                    rentFee = Convert.ToDouble(elements[6])
+                };
+            List<Worker> workerList = WorkerQuery.ToList();
+
+            IEnumerable<Scholarship> ScholarshipQuery =
+                from info in information
+                let elements = info.Split(',')
+                where elements[3].ToString() == "Scholarship"
+                select new Scholarship()
+                {
+                    ID_Number = elements[0],
+                    firstName = elements[1],
+                    lastName = elements[2],
+                    studentType = elements[3],
+                    floorNumber = Convert.ToInt32(elements[4]),
+                    roomNumber = Convert.ToInt32(elements[5]),
+                    rentFee = Convert.ToDouble(elements[6])
+                };
+            List<Scholarship> scholarshipList = ScholarshipQuery.ToList();
+
             try
             {
                 string searchID = Convert.ToInt32(SearchIdBox.Text).ToString();
-                foreach (Student info in information)
+                
+                foreach (Athlete info in athleteList)
                 {
                     if (info.ID_Number.ToString().Contains(searchID))
                     {
-                        updatedList.Add(info);
+                        dataGrid1.Items.Add(new Athlete() { ID_Number = info.ID_Number, firstName = info.firstName, lastName = info.lastName, studentType = info.studentType, floorNumber = info.floorNumber, roomNumber = info.roomNumber, rentFee = info.rentFee });
                     }
                 }
-                foreach (Student info in updatedList)
+                foreach (Worker info in workerList)
                 {
-                    dataGrid1.Items.Add(new Student() { ID_Number = info.ID_Number, firstName = info.firstName, lastName = info.lastName, studentType = info.studentType, floorNumber = info.floorNumber, roomNumber = info.roomNumber, rentFee = info.rentFee });
+                    if (info.ID_Number.ToString().Contains(searchID))
+                    {
+                        dataGrid1.Items.Add(new Worker() { ID_Number = info.ID_Number, firstName = info.firstName, lastName = info.lastName, studentType = info.studentType, floorNumber = info.floorNumber, roomNumber = info.roomNumber, rentFee = info.rentFee });
+                    }
+                }
+                foreach (Scholarship info in scholarshipList)
+                {
+                    if (info.ID_Number.ToString().Contains(searchID))
+                    {
+                        dataGrid1.Items.Add(new Scholarship() { ID_Number = info.ID_Number, firstName = info.firstName, lastName = info.lastName, studentType = info.studentType, floorNumber = info.floorNumber, roomNumber = info.roomNumber, rentFee = info.rentFee });
+                    }
                 }
             }
             catch
             {
                 MessageBox.Show("Please enter an ID number");
                 dataGrid1.Items.Clear();
-                foreach (Student info in information)
+                foreach (Athlete info in athleteList)
                 {
-                    dataGrid1.Items.Add(new Student() { ID_Number = info.ID_Number, firstName = info.firstName, lastName = info.lastName, studentType = info.studentType, floorNumber = info.floorNumber, roomNumber = info.roomNumber, rentFee = info.rentFee });
+                    dataGrid1.Items.Add(new Athlete() { ID_Number = info.ID_Number, firstName = info.firstName, lastName = info.lastName, studentType = info.studentType, floorNumber = info.floorNumber, roomNumber = info.roomNumber, rentFee = info.rentFee });
+                }
+                foreach (Worker info in workerList)
+                {
+                    dataGrid1.Items.Add(new Worker() { ID_Number = info.ID_Number, firstName = info.firstName, lastName = info.lastName, studentType = info.studentType, floorNumber = info.floorNumber, roomNumber = info.roomNumber, rentFee = info.rentFee });
+                }
+                foreach (Scholarship info in scholarshipList)
+                {
+                    dataGrid1.Items.Add(new Scholarship() { ID_Number = info.ID_Number, firstName = info.firstName, lastName = info.lastName, studentType = info.studentType, floorNumber = info.floorNumber, roomNumber = info.roomNumber, rentFee = info.rentFee });
                 }
             }
         }

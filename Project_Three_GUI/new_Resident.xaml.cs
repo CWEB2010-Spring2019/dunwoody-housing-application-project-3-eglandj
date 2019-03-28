@@ -23,10 +23,7 @@ namespace Project_Three_GUI
     /// </summary>
     public partial class new_Resident : Page
     {
-        List<Student> information = File.ReadAllLines(@"..\..\Student_Data.csv")//Reading all lines from the csv file
-                                       .Skip(1)//Skips the first line in the csv file
-                                       .Select(students => new Student(students))//Creating new objects for the read data
-                                       .ToList();//Putting the objects into a list
+        string[] information = File.ReadAllLines(@"..\..\Student_Data.csv");
         public new_Resident()
         {
             InitializeComponent();
@@ -36,7 +33,6 @@ namespace Project_Three_GUI
             MonthlyHoursLabel.Visibility = Visibility.Hidden;
             FloorNumber.IsEnabled = false;
             RoomNumber.IsEnabled = false;
-            
         }
         public void populateStudentType()
         {
@@ -67,18 +63,25 @@ namespace Project_Three_GUI
                 FloorNumber.Items.Add("3");
             }
         }
-        public void populateRooms(List<Student> information)
+        public void populateRooms()
         {
+            var RoomQuery =
+                from info in information
+                let element = info.Split(',')
+                select element[5];
+
+            List<string> roomNumber = RoomQuery.ToList();
+
             RoomNumber.IsEnabled = true;
             RoomNumber.Items.Clear();
             for (int i = 0; i < 10; i++)
             {
                 int room = Convert.ToInt32(FloorNumber.SelectedValue + i.ToString("D2"));
                 RoomNumber.Items.Add(room);
-                foreach (Student info in information)
-                {
-                    RoomNumber.Items.Remove(info.roomNumber);
-                }
+            }
+            foreach (string info in RoomQuery)
+            {
+                RoomNumber.Items.Remove(Convert.ToInt32(info));
             }
         }
 
@@ -100,7 +103,7 @@ namespace Project_Three_GUI
 
         private void FloorNumber_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            populateRooms(information);
+            populateRooms();
         }
 
         private void RoomNumber_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -130,40 +133,54 @@ namespace Project_Three_GUI
         {
             string fileName = @"..\..\Student_Data.csv";
             int count = 0;
-            foreach (Student info in information)
+            var countQuery =
+                from info in information
+                let elements = info.Split(',')
+                select elements[0];
+            foreach (var info in countQuery)
             {
                 count++;
             }
+
             try
             {
                 if (StudentType.SelectedValue.ToString() == "Athlete")
                 {
+                    Athlete studentAthlete = new Athlete((count + 1).ToString("D4"), FirstName.Text, LastName.Text, StudentType.SelectedValue.ToString(),
+                        Convert.ToInt32(FloorNumber.SelectedValue), Convert.ToInt32(RoomNumber.SelectedValue));
                     string athlete = Environment.NewLine;
-                    athlete += (count + 1).ToString("D4") + "," + FirstName.Text + "," + LastName.Text + "," + StudentType.SelectedValue.ToString() + "," +
-                        FloorNumber.SelectedValue + "," + RoomNumber.SelectedValue + "," + 1200;
+                    athlete += studentAthlete.ID_Number + "," + studentAthlete.firstName + "," + studentAthlete.lastName + "," + studentAthlete.studentType + "," +
+                          studentAthlete.floorNumber + "," + studentAthlete.roomNumber + "," + studentAthlete.rentFee;
                     File.AppendAllText(fileName, athlete);
                     MessageBox.Show("Athlete Resident Created");
                 }
                 else if (StudentType.SelectedValue.ToString() == "Scholarship")
                 {
-
+                    Scholarship studentScholar = new Scholarship((count + 1).ToString("D4"), FirstName.Text, LastName.Text, StudentType.SelectedValue.ToString(),
+                        Convert.ToInt32(FloorNumber.SelectedValue), Convert.ToInt32(RoomNumber.SelectedValue));
                     string scholarship = Environment.NewLine;
-                    scholarship += (count + 1).ToString("D4") + "," + FirstName.Text + "," + LastName.Text + "," + StudentType.SelectedValue.ToString() + "," +
-                        FloorNumber.SelectedValue + "," + RoomNumber.SelectedValue + "," + 100;
+                    scholarship += studentScholar.ID_Number + "," + studentScholar.firstName + "," + studentScholar.lastName + "," + studentScholar.studentType + "," +
+                          studentScholar.floorNumber + "," + studentScholar.roomNumber + "," + studentScholar.rentFee;
                     File.AppendAllText(fileName, scholarship);
                     MessageBox.Show("Scholarship Resident Created");
                 }
                 else if (StudentType.SelectedValue.ToString() == "Worker")
                 {
-                    //$1245 a month minus half of their monthly student worker pay(which is calculated 
-                    //    by taking the monthly hours worked * base hourly rate). The base hourly rate for a student worker is $14.00
-
-                    double fee = 1245 - (0.5 * (Convert.ToDouble(MonthlyHours.Text) * 14.00));
-                    string scholarship = Environment.NewLine;
-                    scholarship += (count + 1).ToString("D4") + "," + FirstName.Text + "," + LastName.Text + "," + StudentType.SelectedValue.ToString() + "," +
-                        FloorNumber.SelectedValue + "," + RoomNumber.SelectedValue + "," + fee;
-                    File.AppendAllText(fileName, scholarship);
-                    MessageBox.Show("Worker Resident Created");
+                    if(Convert.ToDouble(MonthlyHours.Text) > 160 || Convert.ToDouble(MonthlyHours.Text) < 1)
+                    {
+                        MessageBox.Show("Hours are unrealistic");
+                        throw new Exception();
+                    }
+                    else
+                    {
+                        Worker studentWorker = new Worker((count + 1).ToString("D4"), FirstName.Text, LastName.Text, StudentType.SelectedValue.ToString(),
+                        Convert.ToInt32(FloorNumber.SelectedValue), Convert.ToInt32(RoomNumber.SelectedValue), Convert.ToDouble(MonthlyHours.Text));
+                        string worker = Environment.NewLine;
+                        worker += studentWorker.ID_Number + "," + studentWorker.firstName + "," + studentWorker.lastName + "," + studentWorker.studentType + "," +
+                              studentWorker.floorNumber + "," + studentWorker.roomNumber + "," + studentWorker.rentFee;
+                        File.AppendAllText(fileName, worker);
+                        MessageBox.Show("Worker Resident Created");
+                    }
                 }
                 FirstName.Text = null;
                 LastName.Text = null;
